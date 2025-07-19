@@ -73,8 +73,8 @@ int main(int argc, char *argv[]) {
       nh.serviceClient<mavros_msgs::SetMode>("/mavros/set_mode");
   fsm.arming_client_srv =
       nh.serviceClient<mavros_msgs::CommandBool>("/mavros/cmd/arming");
-  fsm.reboot_FCU_srv =
-      nh.serviceClient<mavros_msgs::CommandLong>("/mavros/cmd/command");
+  // fsm.reboot_FCU_srv =
+  //     nh.serviceClient<mavros_msgs::CommandLong>("/mavros/cmd/command");
 
   ros::Duration(0.5).sleep();
 

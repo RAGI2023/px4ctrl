@@ -144,15 +144,17 @@ void PX4CtrlFSM::process() {
         ROS_INFO("\033[32m[px4ctrl] MANUAL_CTRL(L1) --> AUTO_TAKEOFF\033[32m");
       }
 
-      if (rc_data.toggle_reboot)  // Try to reboot. EKF2 based PX4 FCU requires
-                                  // reboot when its state estimator goes wrong.
-      {
-        if (state_data.current_state.armed) {
-          ROS_ERROR("[px4ctrl] Reject reboot! Disarm the drone first!");
-          break;
-        }
-        reboot_FCU();
-      }
+      // if (rc_data.toggle_reboot)  // Try to reboot. EKF2 based PX4 FCU
+      // requires
+      //                             // reboot when its state estimator goes
+      //                             wrong.
+      // {
+      //   if (state_data.current_state.armed) {
+      //     ROS_ERROR("[px4ctrl] Reject reboot! Disarm the drone first!");
+      //     break;
+      //   }
+      //   reboot_FCU();
+      // }
 
       break;
     }
@@ -179,10 +181,10 @@ void PX4CtrlFSM::process() {
       } else {
         set_hov_with_rc();
         des = get_hover_des();
-        if ((rc_data.enter_command_mode) ||
-            (takeoff_land.delay_trigger.first &&
+        if ((takeoff_land.delay_trigger.first &&
              now_time > takeoff_land.delay_trigger.second)) {
           takeoff_land.delay_trigger.first = false;
+          rc_data.is_command_mode = true;  // Allow user to send commands
           publish_trigger(odom_data.msg);
           ROS_INFO(
               "\033[32m[px4ctrl] TRIGGER sent, allow user command.\033[32m");
@@ -326,8 +328,8 @@ void PX4CtrlFSM::process() {
 
   // STEP6: Clear flags beyound their lifetime
   rc_data.enter_hover_mode = false;
-  rc_data.enter_command_mode = false;
-  rc_data.toggle_reboot = false;
+  // rc_data.enter_command_mode = false;
+  // rc_data.toggle_reboot = false;
   takeoff_land_data.triggered = false;
 }
 
@@ -478,8 +480,9 @@ void PX4CtrlFSM::set_hov_with_rc() {
   // 	if (count++ % 100 == 0)
   // 	{
   // 		cout << "hover_pose=" << hover_pose.transpose() << endl;
-  // 		cout << "ch[0~3]=" << rc_data.ch[0] << " " << rc_data.ch[1] << " " <<
-  // rc_data.ch[2] << " " << rc_data.ch[3] << endl;
+  // 		cout << "ch[0~3]=" << rc_data.ch[0] << " " << rc_data.ch[1] << "
+  // "
+  // << rc_data.ch[2] << " " << rc_data.ch[3] << endl;
   // 	}
   // }
 }
@@ -612,21 +615,21 @@ bool PX4CtrlFSM::toggle_arm_disarm(bool arm) {
   return true;
 }
 
-void PX4CtrlFSM::reboot_FCU() {
-  // https://mavlink.io/en/messages/common.html,
-  // MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN(#246)
-  mavros_msgs::CommandLong reboot_srv;
-  reboot_srv.request.broadcast = false;
-  reboot_srv.request.command = 246;  // MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN
-  reboot_srv.request.param1 = 1;     // Reboot autopilot
-  reboot_srv.request.param2 = 0;     // Do nothing for onboard computer
-  reboot_srv.request.confirmation = true;
+// void PX4CtrlFSM::reboot_FCU() {
+//   // https://mavlink.io/en/messages/common.html,
+//   // MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN(#246)
+//   mavros_msgs::CommandLong reboot_srv;
+//   reboot_srv.request.broadcast = false;
+//   reboot_srv.request.command = 246;  // MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN
+//   reboot_srv.request.param1 = 1;     // Reboot autopilot
+//   reboot_srv.request.param2 = 0;     // Do nothing for onboard computer
+//   reboot_srv.request.confirmation = true;
 
-  reboot_FCU_srv.call(reboot_srv);
+//   reboot_FCU_srv.call(reboot_srv);
 
-  ROS_INFO("Reboot FCU");
+//   ROS_INFO("Reboot FCU");
 
-  // if (param.print_dbg)
-  // 	printf("reboot result=%d(uint8_t), success=%d(uint8_t)\n",
-  // reboot_srv.response.result, reboot_srv.response.success);
-}
+//   // if (param.print_dbg)
+//   // 	printf("reboot result=%d(uint8_t), success=%d(uint8_t)\n",
+//   // reboot_srv.response.result, reboot_srv.response.success);
+// }

@@ -18,24 +18,24 @@
 class RC_Data_t {
  public:
   double mode;
-  double gear;
-  double reboot_cmd;
+  // double gear;
+  // double reboot_cmd;
   double last_mode;
-  double last_gear;
-  double last_reboot_cmd;
+  // double last_gear;
+  // double last_reboot_cmd;
   bool have_init_last_mode{false};
-  bool have_init_last_gear{false};
-  bool have_init_last_reboot_cmd{false};
+  // bool have_init_last_gear{false};
+  // bool have_init_last_reboot_cmd{false};
   double ch[4];
 
   mavros_msgs::RCIn msg;
   ros::Time rcv_stamp;
 
   bool is_command_mode;
-  bool enter_command_mode;
+  // bool enter_command_mode;
   bool is_hover_mode;
   bool enter_hover_mode;
-  bool toggle_reboot;
+  // bool toggle_reboot;
 
   static constexpr double GEAR_SHIFT_VALUE = 0.75;
   static constexpr double API_MODE_THRESHOLD_VALUE = 0.75;

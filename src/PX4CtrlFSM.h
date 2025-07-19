@@ -46,7 +46,7 @@ class PX4CtrlFSM {
   ros::Publisher debug_pub;  // debug
   ros::ServiceClient set_FCU_mode_srv;
   ros::ServiceClient arming_client_srv;
-  ros::ServiceClient reboot_FCU_srv;
+  //   ros::ServiceClient reboot_FCU_srv;
 
   quadrotor_msgs::Px4ctrlDebug debug_msg;  // debug
 
@@ -99,7 +99,7 @@ class PX4CtrlFSM {
       bool on_off);  // It will only try to toggle once, so not blocked.
   bool toggle_arm_disarm(
       bool arm);  // It will only try to toggle once, so not blocked.
-  void reboot_FCU();
+                  //   void reboot_FCU();
 
   void publish_bodyrate_ctrl(const Controller_Output_t &u,
                              const ros::Time &stamp);
