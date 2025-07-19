@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(px4ctrl)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 set(CMAKE_VERBOSE_MAKEFILE "false")
 
 set(CMAKE_BUILD_TYPE "Release")
