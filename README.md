@@ -1,11 +1,12 @@
 From ZJU-FAST-Lab/Fast-Drone-250
-
+> 编译需要`cmake_utils`, `quadrotor_msgs`, `uav_utils`
 # PX4 controller  除了最后一章“PX4 Controller详细介绍”以外都先看一遍免得踩坑
 
 
 
 # 使用说明
 
+- [PX4 controller  除了最后一章“PX4 Controller详细介绍”以外都先看一遍免得踩坑](#px4-controller--除了最后一章px4-controller详细介绍以外都先看一遍免得踩坑)
 - [使用说明](#使用说明)
   - [飞控设置](#飞控设置)
     - [1. 简要阅读官方文档](#1-简要阅读官方文档)
@@ -22,15 +23,10 @@ From ZJU-FAST-Lab/Fast-Drone-250
     - [控制器topic和service](#控制器topic和service)
     - [低精度简易控制](#低精度简易控制)
     - [自动起降](#自动起降)
-    - [无遥控飞行](#无遥控飞行)
   - [PX4 Controller详细介绍](#px4-controller详细介绍)
     - [三种模式介绍](#三种模式介绍)
-    - [角度/角速度控制](#角度角速度控制)
-    - [前馈控制量解算算法](#前馈控制量解算算法)
-    - [空气阻力补偿:](#空气阻力补偿)
     - [串级PID反馈控制](#串级pid反馈控制)
-    - [简易/精确油门推力模型](#简易精确油门推力模型)
-    - [提高精度总结](#提高精度总结)
+    - [简易油门推力模型](#简易油门推力模型)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
